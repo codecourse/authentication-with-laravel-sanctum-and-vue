@@ -24,6 +24,8 @@ export default function useAuth() {
 
             setAuthenticated(true)
             setUser(response.data)
+
+            return response
         } catch (e) {
             setAuthenticated(false)
             setUser({})
