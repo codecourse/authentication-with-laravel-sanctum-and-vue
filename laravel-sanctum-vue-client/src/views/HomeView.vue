@@ -4,7 +4,7 @@ import { reactive } from 'vue'
 import useAuth from "@/composables/useAuth.js";
 import Navigation from "@/components/Navigation.vue";
 
-const { login: loginAction } = useAuth()
+const { login: loginAction, errors } = useAuth()
 
 const form = reactive({
   email: 'alex@codecourse.com',
