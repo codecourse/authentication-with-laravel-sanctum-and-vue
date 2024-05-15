@@ -1,18 +1,36 @@
 import {computed, reactive} from "vue";
+import axios from "axios";
 
 const state = reactive({
-    name: ''
+    authenticated: false,
+    user: {}
 })
 
 export default function useAuth() {
-    const getName = computed(() => state.name)
+    const authenticated = computed(() => state.authenticated)
+    const user = computed(() => state.user)
 
-    const setName = (name) => {
-        state.name = name
+    const setAuthenticated = (authenticated) => {
+        state.authenticated = authenticated
+    }
+
+    const setUser = (user) => {
+        state.user = user
+    }
+
+    const login = async (credentials) => {
+        await axios.get('/sanctum/csrf-cookie')
+
+        try {
+            await axios.post('/login', credentials)
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return {
-        setName,
-        getName
+        authenticated,
+        user,
+        login
     }
 }
