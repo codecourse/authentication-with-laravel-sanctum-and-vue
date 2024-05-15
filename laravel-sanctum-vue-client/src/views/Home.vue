@@ -1,33 +1,8 @@
 <script setup>
-import { reactive } from 'vue'
-import useAuth from "@/composables/useAuth.js";
 
-const { login: loginAction, errors } = useAuth()
-
-const form = reactive({
-  email: 'alex@codecourse.com',
-  password: 'password'
-})
-
-const login = async () => {
-  loginAction(form)
-}
+import PageHeading from "@/components/PageHeading.vue";
 </script>
 
 <template>
-  <main>
-    <form v-on:submit.prevent="login">
-      <div>
-        <label for="email">Email</label>
-        <input type="text" id="email" v-model="form.email">
-        <p v-if="errors.email">{{ errors.email[0] }}</p>
-      </div>
-      <div>
-        <label for="password">Password</label>
-        <input type="text" id="password" v-model="form.password">
-        <p v-if="errors.password">{{ errors.password[0] }}</p>
-      </div>
-      <button type="submit">Log in</button>
-    </form>
-  </main>
+  <PageHeading title="Home" />
 </template>
