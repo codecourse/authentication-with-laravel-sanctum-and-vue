@@ -1,8 +1,6 @@
 <script setup>
-import axios from 'axios'
 import { reactive } from 'vue'
 import useAuth from "@/composables/useAuth.js";
-import Navigation from "@/components/Navigation.vue";
 
 const { login: loginAction, errors } = useAuth()
 
@@ -17,7 +15,6 @@ const login = async () => {
 </script>
 
 <template>
-  <Navigation />
   <main>
     <form v-on:submit.prevent="login">
       <div>

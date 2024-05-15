@@ -1,7 +1,13 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import Navigation from "@/components/Navigation.vue";
 </script>
 
 <template>
-  <RouterView />
+  <Navigation />
+  <div class="py-6 lg:py-12">
+    <div class="mx-auto max-w-7xl px-6 lg-px-8">
+      <RouterView />
+    </div>
+  </div>
 </template>
