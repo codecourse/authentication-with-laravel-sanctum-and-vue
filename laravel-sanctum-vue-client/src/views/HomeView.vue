@@ -1,6 +1,10 @@
 <script setup>
 import axios from 'axios'
 import { reactive } from 'vue'
+import useAuth from "@/composables/useAuth.js";
+import Navigation from "@/components/Navigation.vue";
+
+const { setName } = useAuth()
 
 const form = reactive({
   email: 'alex@codecourse.com',
@@ -8,16 +12,12 @@ const form = reactive({
 })
 
 const login = async () => {
-  await axios.get('/sanctum/csrf-cookie')
-  await axios.post('/login', form)
-
-  axios.get('/api/user').then((response) => {
-    console.log(response)
-  })
+  setName('Alex')
 }
 </script>
 
 <template>
+  <Navigation />
   <main>
     <form v-on:submit.prevent="login">
       <div>
