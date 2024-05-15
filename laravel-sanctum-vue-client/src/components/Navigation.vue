@@ -1,9 +1,16 @@
 <script setup>
 import useAuth from "@/composables/useAuth.js";
 import {ref} from "vue";
+import router from "@/router/index.js";
 
 const mobileNavigationOpen = ref(false)
-const { authenticated, user, logout } = useAuth()
+const { authenticated, user, logout: logoutAction } = useAuth()
+
+const logout = () => {
+  logoutAction().then(() => {
+    router.push({ name: 'home' })
+  })
+}
 </script>
 
 <template>
@@ -30,7 +37,7 @@ const { authenticated, user, logout } = useAuth()
       <div class="hidden lg:flex">
         <div class="flex items-center space-x-6" v-if="authenticated">
           <div class="text-sm font-semibold leading-6 text-gray-900">{{ user.name }}</div>
-          <button class="text-sm font-semibold leading-6 text-gray-900">
+          <button v-on:click="logout" class="text-sm font-semibold leading-6 text-gray-900">
             Log out &rarr;
           </button>
         </div>
@@ -64,12 +71,12 @@ const { authenticated, user, logout } = useAuth()
               <RouterLink :to="{ name: 'dashboard' }" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Dashboard</RouterLink>
             </div>
             <div class="py-6">
-              <div>
-                <button class="w-full text-left -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+              <div v-if="authenticated">
+                <button v-on:click="logout" class="w-full text-left -mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                   Log out
                 </button>
               </div>
-              <div>
+              <div v-if="!authenticated">
                 <RouterLink :to="{ name: 'login' }" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                   Log in
                 </RouterLink>
