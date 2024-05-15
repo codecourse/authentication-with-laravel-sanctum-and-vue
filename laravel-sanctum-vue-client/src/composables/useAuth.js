@@ -1,4 +1,4 @@
-import {computed, reactive} from "vue";
+import {computed, reactive, ref} from "vue";
 import axios from "axios";
 
 const state = reactive({
@@ -7,6 +7,8 @@ const state = reactive({
 })
 
 export default function useAuth() {
+    const errors = ref({})
+
     const authenticated = computed(() => state.authenticated)
     const user = computed(() => state.user)
 
@@ -39,7 +41,11 @@ export default function useAuth() {
             await axios.post('/login', credentials)
             return attempt()
         } catch (e) {
-            console.log(e)
+            if (e.response.status === 422) {
+                errors.value = e.response.data.errors
+            }
+
+            return Promise.reject(null)
         }
     }
 
@@ -47,6 +53,7 @@ export default function useAuth() {
         authenticated,
         user,
         login,
-        attempt
+        attempt,
+        errors
     }
 }

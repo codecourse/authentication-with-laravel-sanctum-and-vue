@@ -23,10 +23,12 @@ const login = async () => {
       <div>
         <label for="email">Email</label>
         <input type="text" id="email" v-model="form.email">
+        <p v-if="errors.email">{{ errors.email[0] }}</p>
       </div>
       <div>
         <label for="password">Password</label>
         <input type="text" id="password" v-model="form.password">
+        <p v-if="errors.password">{{ errors.password[0] }}</p>
       </div>
       <button type="submit">Log in</button>
     </form>
