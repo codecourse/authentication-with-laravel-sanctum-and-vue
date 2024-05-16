@@ -6,6 +6,7 @@ import Register from "@/views/Register.vue";
 import exampleMiddleware from "@/middleware/exampleMiddleware.js";
 import middlewarePipeline from "@/router/middlewarePipeline.js";
 import redirectIfGuest from "@/middleware/redirectIfGuest.js";
+import redirectIfAuthenticated from "@/middleware/redirectIfAuthenticated.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,18 +21,24 @@ const router = createRouter({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        middleware: [redirectIfGuest, exampleMiddleware]
+        middleware: [redirectIfGuest]
       }
     },
     {
       path: '/login',
       name: 'login',
-      component: Login
+      component: Login,
+      meta: {
+        middleware: [redirectIfAuthenticated]
+      }
     },
     {
       path: '/register',
       name: 'register',
-      component: Register
+      component: Register,
+      meta: {
+        middleware: [redirectIfAuthenticated]
+      }
     }
   ]
 })
