@@ -5,6 +5,7 @@ import Login from "@/views/Login.vue";
 import Register from "@/views/Register.vue";
 import exampleMiddleware from "@/middleware/exampleMiddleware.js";
 import middlewarePipeline from "@/router/middlewarePipeline.js";
+import redirectIfGuest from "@/middleware/redirectIfGuest.js";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,7 +20,7 @@ const router = createRouter({
       name: 'dashboard',
       component: Dashboard,
       meta: {
-        middleware: [exampleMiddleware]
+        middleware: [redirectIfGuest, exampleMiddleware]
       }
     },
     {
